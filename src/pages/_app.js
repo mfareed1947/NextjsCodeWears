@@ -3,7 +3,9 @@ import Navbar from "Components/Navbar";
 import Footer from "Components/Footer";
 import ProgressBar from "@badrap/bar-of-progress";
 import { Router } from 'next/router';
-
+import { Provider } from 'react-redux';
+import { store } from 'Redux/store';
+import toast, { Toaster } from 'react-hot-toast';
 export default function App({ Component, pageProps }) {
   const progress = new ProgressBar({
     size: 2,
@@ -18,8 +20,11 @@ export default function App({ Component, pageProps }) {
   Router.events.on('routeChangeError', progress.finish)
 
   return <>
-    <Navbar />
-    <Component {...pageProps} />
-    <Footer />
+    <Provider store={store}>
+      <Navbar />
+      <Component {...pageProps} />
+      <Toaster />
+      <Footer />
+    </Provider>
   </>
 }

@@ -2,7 +2,9 @@
 import Link from "next/link";
 import React, { useRef } from "react";
 import { AiFillCloseCircle, AiOutlineShoppingCart, AiOutlinePlusCircle, AiOutlineMinusCircle, AiFillShopping } from "react-icons/ai";
+import { useDispatch } from "react-redux";
 const Navbar = () => {
+  const dispatch = useDispatch()
   const toggleCart = () => {
     if (ref.current.classList.contains("translate-x-full")) {
       ref.current.classList.remove("translate-x-full")
@@ -14,7 +16,9 @@ const Navbar = () => {
       ref.current.classList.add("translate-x-full")
       // ref.current.classList.add("hidden")
     }
-
+  }
+  const ClearCart = (payload) => {
+    dispatch({ type: "ClearCart", payload: payload })
   }
   const ref = useRef()
   return (
@@ -76,9 +80,9 @@ const Navbar = () => {
             </li>
           </ol>
           <div className="flex pt-6 flex-wrap">
-            <button class="flex ml-2 md:ml-10 text-white bg-pink-500 border-0 py-2 px-2 md:px-6 focus:outline-none hover:bg-pink-600 rounded">
+            <button className="flex ml-2 md:ml-10 text-white bg-pink-500 border-0 py-2 px-2 md:px-6 focus:outline-none hover:bg-pink-600 rounded">
               <AiFillShopping className="text-xl pr-1" />checkout</button>
-            <button class="flex ml-2 md:ml-10 text-white bg-pink-500 border-0 py-2 px-2 md:px-6 focus:outline-none hover:bg-pink-600 rounded">cancel</button>
+            <button onClick={() => { ClearCart() }} className="flex ml-2 md:ml-10 text-white bg-pink-500 border-0 py-2 px-2 md:px-6 focus:outline-none hover:bg-pink-600 rounded">Clear Cart</button>
           </div>
         </div>
       </div>
