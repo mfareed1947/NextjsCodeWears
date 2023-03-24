@@ -2,8 +2,9 @@
 import Link from "next/link";
 import React, { useRef } from "react";
 import { AiFillCloseCircle, AiOutlineShoppingCart, AiOutlinePlusCircle, AiOutlineMinusCircle, AiFillShopping } from "react-icons/ai";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 const Navbar = () => {
+  const { cartItems } = useSelector(state => state.cart)
   const dispatch = useDispatch()
   const toggleCart = () => {
     if (ref.current.classList.contains("translate-x-full")) {
@@ -19,6 +20,19 @@ const Navbar = () => {
   }
   const ClearCart = (payload) => {
     dispatch({ type: "ClearCart", payload: payload })
+  }
+  const obj = {
+    productName: "Iphone",
+    id: '234567',
+    desc: "fjmnbhvdhtgggffd",
+    price: 454500,
+    qty: 4
+  }
+  const handleAddClick = (payload) => {
+    dispatch({ type: "addToCart", payload: payload })
+  }
+  const handleDeleteClick = (payload) => {
+    dispatch({ type: "decrement", payload: payload })
   }
   const ref = useRef()
   return (
@@ -54,30 +68,16 @@ const Navbar = () => {
           <h2 className="text-center text-xl font-semibold">Your Cart is Here</h2>
           <span onClick={toggleCart} className="absolute top-6 right-2 text-2xl cursor-pointer text-pink-500 px-2"> <AiFillCloseCircle /></span>
           <ol className="px-6 py-2">
-            <li className="flex justify-between pt-6">
-              <div>basic T-shirt is free</div>
-              <div className="flex items-center justify-center space-x-2">
-                <AiOutlineMinusCircle className="text-xl cursor-pointer text-pink-600" />
-                <input type="text" className="w-6" />
-                <AiOutlinePlusCircle className="text-xl cursor-pointer text-pink-600" />
-              </div>
-            </li>
-            <li className="flex justify-between pt-6">
-              <div>basic T-shirt is free</div>
-              <div className="flex items-center justify-center space-x-2">
-                <AiOutlineMinusCircle className="text-xl cursor-pointer text-pink-600" />
-                <input type="text" className="w-6" />
-                <AiOutlinePlusCircle className="text-xl cursor-pointer text-pink-600" />
-              </div>
-            </li>
-            <li className="flex justify-between pt-6">
-              <div>basic T-shirt is free</div>
-              <div className="flex items-center justify-center space-x-2">
-                <AiOutlineMinusCircle className="text-xl cursor-pointer text-pink-600" />
-                <input type="text" className="w-6" />
-                <AiOutlinePlusCircle className="text-xl cursor-pointer text-pink-600" />
-              </div>
-            </li>
+            {cartItems.map(({ id, qty, productName }) => (
+              <li key={id} className="flex justify-between pt-6">
+                <div>{productName}</div>
+                <div className="flex items-center justify-center space-x-2">
+                  <AiOutlineMinusCircle className="text-xl cursor-pointer text-pink-600" onClick={() => { handleDeleteClick(obj) }} />
+                  <input type="text" className="w-6" value={qty} />
+                  <AiOutlinePlusCircle className="text-xl cursor-pointer text-pink-600" onClick={() => { handleAddClick(obj) }} />
+                </div>
+              </li>
+            ))}
           </ol>
           <div className="flex pt-6 flex-wrap">
             <button className="flex ml-2 md:ml-10 text-white bg-pink-500 border-0 py-2 px-2 md:px-6 focus:outline-none hover:bg-pink-600 rounded">

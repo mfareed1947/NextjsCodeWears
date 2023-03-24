@@ -10,9 +10,7 @@ export const cartReducer = createReducer({
     {
         addToCart: (state, action) => {
             let item = action.payload;
-            const itemExist = state.cartItems.find((ele) => {
-                ele.id === item.id
-            })
+            const itemExist = state.cartItems.find((i) => i.id === item.id)
             if (itemExist) {
                 state.cartItems.forEach((ele) => {
                     if (ele.id === item.id) {
@@ -24,7 +22,15 @@ export const cartReducer = createReducer({
             }
         },
         decrement: (state, action) => {
-            
+            const item = state.cartItems.find((i) => i.id === action.payload.id)
+            if (item.qty > 1) {
+                state.cartItems.forEach((i) => {
+                    if (i.id === item.id) {
+                        i.qty -= 1
+                    }
+                })
+            }
+
         },
         ClearCart: (state, action) => {
             state.cartItems = []
@@ -36,5 +42,5 @@ export const cartReducer = createReducer({
         calculatePrice: (state) => {
             let sum = 0;
             state.cartItems.forEach((i) => sum += i.price * i.qty)
-        }
+        },
     })
