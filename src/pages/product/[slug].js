@@ -13,7 +13,14 @@ const Slug = () => {
     id: '234567',
     desc: "fjmnbhvdhtgggffd",
     price: 454500,
-    qty: 1
+    qty: 4
+  }
+  const obj2 = {
+    productName: "Iphone22",
+    id: '23456227',
+    desc: "fjmnbhvdhtgggffd",
+    price: 454500,
+    qty: 4
   }
   const checkService = async () => {
     const pins = await fetch('http://localhost:3000/api/pincode')
@@ -104,7 +111,7 @@ const Slug = () => {
               </div>
               <div className="flex">
                 <span className="title-font font-medium text-xl text-black">Rs 1600</span>
-                <button className="flex ml-6 text-white bg-pink-500 border-0 py-2 px-3 md:px-6 focus:outline-none hover:bg-pink-600 rounded" onClick={() => { handleAddClick(obj) }} >Add to Cart</button>
+                <button className="flex ml-6 text-white bg-pink-500 border-0 py-2 px-3 md:px-6 focus:outline-none hover:bg-pink-600 rounded" onClick={() => { handleAddClick(obj2) }} >Add to Cart</button>
                 <button className="flex ml-6 text-white bg-pink-500 border-0 py-2 px-3 md:px-6 focus:outline-none hover:bg-pink-600 rounded">Buy Now</button>
                 <button className="rounded-full w-10 h-10 bg-gray-800 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                   <svg fill="currentColor" stroke-linecap="round" strokeLinejoin="round" stroke-width="2" className="w-5 h-5" viewBox="0 0 24 24">
