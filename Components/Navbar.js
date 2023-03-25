@@ -26,7 +26,7 @@ const Navbar = () => {
     id: '234567',
     desc: "fjmnbhvdhtgggffd",
     price: 454500,
-    qty: 4
+    qty: 1
   }
   const handleAddClick = (payload) => {
     dispatch({ type: "addToCart", payload: payload })
@@ -62,6 +62,7 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="cart absolute right-0 top-5 mx-5 cursor-pointer ">
+          <div className="absolute w-5 h-5 bg-pink-300 rounded-full left-4 -top-2"><span className="grid place-items-center text-sm">{cartItems.length}</span></div>
           <AiOutlineShoppingCart onClick={toggleCart} className="text-3xl" />
         </div>
         <div ref={ref} className="sidebar bg-pink-200 absolute z-50 w-4/5 md:w-2/5 h-full top-0 right-0 py-10 px-8 hidden transform duration-200 ease-out transition-transform translate-x-full">
@@ -80,8 +81,10 @@ const Navbar = () => {
             ))}
           </ol>
           <div className="flex pt-6 flex-wrap">
-            <button className="flex ml-2 md:ml-10 text-white bg-pink-500 border-0 py-2 px-2 md:px-6 focus:outline-none hover:bg-pink-600 rounded">
-              <AiFillShopping className="text-xl pr-1" />checkout</button>
+            <Link href={'/checkout'}>
+              <button className="flex ml-2 md:ml-10 text-white bg-pink-500 border-0 py-2 px-2 md:px-6 focus:outline-none hover:bg-pink-600 rounded">
+                <AiFillShopping className="text-xl pr-1" />checkout</button>
+            </Link>
             <button onClick={() => { ClearCart() }} className="flex ml-2 md:ml-10 text-white bg-pink-500 border-0 py-2 px-2 md:px-6 focus:outline-none hover:bg-pink-600 rounded">Clear Cart</button>
           </div>
         </div>

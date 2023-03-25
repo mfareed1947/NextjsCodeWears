@@ -20,6 +20,7 @@ export const cartReducer = createReducer({
             } else {
                 state.cartItems.push(item)
             }
+            localStorage.setItem('myCart', JSON.stringify(state.cartItems) || "[]")
         },
         decrement: (state, action) => {
             const item = state.cartItems.find((i) => i.id === action.payload.id)
@@ -34,6 +35,7 @@ export const cartReducer = createReducer({
         },
         ClearCart: (state, action) => {
             state.cartItems = []
+            localStorage.removeItem('myCart')
         },
         RemoveFromCart: (state, action) => {
             state.cartItems.filter((i) => i.id !== action.payload)
